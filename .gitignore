@@ -4,3 +4,6 @@ LICENSE.txt
 LIB
 Scripts
 tcl
+build
+dist
+app.spec

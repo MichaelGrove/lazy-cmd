@@ -15,7 +15,6 @@ class ActionButton():
         try:
             with open('%s/commands/%s' % (self.cwd, filename)) as f:
                 content = f.read()
-                f.close()
                 return content
         except:
             return "echo File %s not found." % filename

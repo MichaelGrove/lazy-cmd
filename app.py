@@ -19,12 +19,28 @@ class Application(tk.Frame):
 
     def load_config(self):
         try:
-            with open('%s./config.json' % self.cwd) as f:
+            with open('%s/config.json' % self.cwd) as f:
                 content = json.load(f)
-                f.close()
                 return content
         except:
-            sys.exit(0)
+            self.create_config()
+            return self.load_config()
+
+    def create_config(self):
+        data = {}
+        data['commands'] = []
+        data['commands'].append({
+            'label': 'Directory',
+            'cmd': 'dir.cmd'
+        })
+
+        with open('%s/config.json' % self.cwd, "w") as cfg:
+            json.dump(data, cfg)
+        
+        filename = '%s/commands/dir.cmd' % self.cwd
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        with open(filename, "w") as f:
+            f.write("dir")
 
     def create_widgets(self):
         self.widget_output_screen()
@@ -32,6 +48,7 @@ class Application(tk.Frame):
 
     def widget_action_buttons(self):
         self.actions = []
+        print(self.config)
         commands = self.config["commands"]
         for command in commands:
             action_button = ActionButton(command["label"], command["cmd"], self.output_screen)
