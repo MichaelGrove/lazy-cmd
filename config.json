@@ -1,0 +1,12 @@
+{
+    "commands": [
+        {
+            "label": "Directory",
+            "cmd": "dir.cmd"
+        },
+        {
+            "label": "IP Config",
+            "cmd": "ipconfig.cmd"
+        }
+    ]
+}
