@@ -7,3 +7,4 @@ tcl
 build
 dist
 app.spec
+/LazyCMD.spec

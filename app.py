@@ -6,6 +6,8 @@ from tkinter.scrolledtext import ScrolledText
 from ActionButton import ActionButton
 
 
+# TODO: Use subprocess instead of os.popen, so we can use --noconsole on pyinstaller build
+
 class Application(tk.Frame):
 
     def __init__(self, master=None):
@@ -48,7 +50,6 @@ class Application(tk.Frame):
 
     def widget_action_buttons(self):
         self.actions = []
-        print(self.config)
         commands = self.config["commands"]
         for command in commands:
             action_button = ActionButton(command["label"], command["cmd"], self.output_screen)
@@ -60,7 +61,10 @@ class Application(tk.Frame):
         self.output_screen = ScrolledText(self)
         self.output_screen.pack(side="right") 
 
-
-root = tk.Tk()
-app = Application(master=root)
-app.mainloop()
+try:
+    root = tk.Tk()
+    app = Application(master=root)
+    app.mainloop()
+except Exception as e:
+    with open('err.log', "w") as log:
+        log.write(str(e))
