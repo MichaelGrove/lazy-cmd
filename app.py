@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 import json
@@ -5,8 +6,6 @@ import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
 from ActionButton import ActionButton
 
-
-# TODO: Use subprocess instead of os.popen, so we can use --noconsole on pyinstaller build
 
 class Application(tk.Frame):
 
@@ -47,10 +46,11 @@ class Application(tk.Frame):
     def create_widgets(self):
         self.widget_output_screen()
         self.widget_action_buttons()
-
+    
     def widget_action_buttons(self):
         self.actions = []
         commands = self.config["commands"]
+
         for command in commands:
             action_button = ActionButton(command["label"], command["cmd"], self.output_screen)
             button = tk.Button(self, text = action_button.label, command = action_button.run_cmd)
@@ -60,6 +60,9 @@ class Application(tk.Frame):
     def widget_output_screen(self):
         self.output_screen = ScrolledText(self)
         self.output_screen.pack(side="right") 
+        self.output_screen.config(foreground='white')
+        self.output_screen.config(background='black')
+        self.output_screen.insert(tk.END, "Welcome. \n")
 
 try:
     root = tk.Tk()

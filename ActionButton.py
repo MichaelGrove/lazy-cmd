@@ -21,6 +21,8 @@ class ActionButton():
 
     def run_cmd(self):
         cmd = self.load_cmd(self.command_filename)
+        self.output_screen.insert(tk.END, '\n> %s' % " ".join(cmd))
+
         theproc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
         stdout, stderr = theproc.communicate()
         if stdout:
@@ -28,12 +30,6 @@ class ActionButton():
         if stderr:
             self.display_feed(stderr)
     
-    def get_output_total_length(self):
-        return len(self.output_screen.get("1.0", tk.END))
-
     def display_feed(self, feed):
-        if self.get_output_total_length() > 2:
-            self.output_screen.insert(tk.END, "\n-----------------------\n")
-        
         self.output_screen.insert(tk.END, feed)
         self.output_screen.see(tk.END)
