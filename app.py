@@ -20,7 +20,7 @@ class Application(tk.Frame):
 
     def load_config(self):
         try:
-            with open('%s/config.json' % self.cwd) as f:
+            with open('%s/config.json' % self.cwd, encoding="utf-8") as f:
                 content = json.load(f)
                 return content
         except:
@@ -54,7 +54,7 @@ class Application(tk.Frame):
         for command in commands:
             action_button = ActionButton(command["label"], command["cmd"], self.output_screen)
             button = tk.Button(self, text = action_button.label, command = action_button.run_cmd)
-            button.pack()
+            button.pack(fill=tk.X)
             self.actions.append(button)
 
     def widget_output_screen(self):
