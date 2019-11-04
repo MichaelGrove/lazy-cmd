@@ -21,7 +21,7 @@ class ActionButton():
 
     def run_cmd(self):
         cmd = self.load_cmd(self.command_filename)
-        self.output_screen.insert(tk.END, '\n> %s' % " ".join(cmd))
+        self.output_screen.insert(tk.END, '\n> %s\n' % " ".join(cmd))
 
         theproc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
         stdout, stderr = theproc.communicate()
