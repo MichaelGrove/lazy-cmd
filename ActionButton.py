@@ -1,7 +1,7 @@
 import os
+import sys
 import tkinter as tk
 import subprocess
-
 
 class ActionButton():
 
@@ -15,14 +15,18 @@ class ActionButton():
         try:
             with open('%s/commands/%s' % (self.cwd, filename)) as f:
                 content = f.read()
-                return content
+                return content.split(" ")
         except:
             return "echo File %s not found." % filename
 
     def run_cmd(self):
         cmd = self.load_cmd(self.command_filename)
-        feed = os.popen(cmd).read()
-        self.display_feed(feed)
+        theproc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        stdout, stderr = theproc.communicate()
+        if stdout:
+            self.display_feed(stdout)
+        if stderr:
+            self.display_feed(stderr)
     
     def get_output_total_length(self):
         return len(self.output_screen.get("1.0", tk.END))
