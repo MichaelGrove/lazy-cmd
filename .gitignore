@@ -8,3 +8,5 @@ build
 dist
 app.spec
 /LazyCMD.spec
+/commands
+/config.json
